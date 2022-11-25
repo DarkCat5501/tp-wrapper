@@ -1,0 +1,7 @@
+*.d
+*.o
+Makefile
+.vscode
+obj
+*.tmp.hpp
+compile_commands.json
