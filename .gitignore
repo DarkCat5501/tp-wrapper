@@ -5,3 +5,4 @@ Makefile
 obj
 *.tmp.hpp
 compile_commands.json
+.cache
