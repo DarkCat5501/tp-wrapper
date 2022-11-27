@@ -72,8 +72,6 @@ static inline Option<T> None(){ return Option<T>::Some(); }
 static inline NoneOption None(){ return NoneOption(); }
 static inline AnyOption Any(){ return AnyOption(); }
 
-
-#define __match_var __13_match41623
 #define match(X) __match_var = X
 #define if_match(Y) if(__match_var == Y)
 #define elif_match(Y) else if(__match_var == Y)
