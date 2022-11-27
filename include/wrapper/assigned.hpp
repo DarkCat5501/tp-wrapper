@@ -2,13 +2,10 @@
 #include "core.hpp"
 #include "option.hpp"
 
-#define L_BIT(X) (0x80 << 8*(sizeof(X)-1) )
-#define R_BIT(X) (0x1)
 #define I_ASSIGN_BIT(X) (0x80 << 8*(sizeof(X)-1) )
 #define F_ASSIGN_BIT(X) (0x1)
 #define A_SIGN_BIT(X) (0x40 << 8*(sizeof(X)-1) )
 #define I_ASSIGN_SIGN_BITS(X) (0xC0 << 8*(sizeof(X)-1) )
-#define FULL_MASK(X) ((X)~0x0)
 
 template<typename T>
 T assigned_to_value(T a){

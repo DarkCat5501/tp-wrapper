@@ -1,6 +1,5 @@
 #pragma once
-
-
+#include "helpers.hpp"
 #include <type_traits>
 #include <exception>
 #include <string>
@@ -11,12 +10,13 @@
 #include <iostream>
 #include <cinttypes>
 
-template<typename T = std::string>
+template<typename T>
 struct Error: public std::exception {
 	T error;
-	Error(const T& e):error(e){}
-	Error(int e):error(std::strerror(e)){}
-	const char* what() const noexcept override { return (const char *)error; }
+	std::string error_str;
+	Error(const T& e):error(e),error_str(std::to_string(e)){}
+	Error(int e):error((T)e),error_str(std::strerror(e)){}
+	const char* what() const noexcept override { return error_str.c_str(); }
 };
 
 /**
@@ -45,5 +45,3 @@ inline void todo(const T& message){
 #ifdef	RUST_LIKE_CPP
 #define let auto
 #endif
-
-#define mutate(X,Y) (*(X*)&Y)
