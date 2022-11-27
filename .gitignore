@@ -6,3 +6,4 @@ obj
 *.tmp.hpp
 compile_commands.json
 .cache
+app
