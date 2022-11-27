@@ -7,18 +7,21 @@
 #define I_ASSIGN_BIT(X) (0x80 << 8*(sizeof(X)-1) )
 #define F_ASSIGN_BIT(X) (0x1)
 #define A_SIGN_BIT(X) (0x40 << 8*(sizeof(X)-1) )
-#define ASSIGN_SIGN_BITS(X) (0xC0 << 8*(sizeof(X)-1) )
-#define FULL_MASK ~0x0
+#define I_ASSIGN_SIGN_BITS(X) (0xC0 << 8*(sizeof(X)-1) )
+#define FULL_MASK(X) ((X)~0x0)
 
 template<typename T>
 T assigned_to_value(T a){
-	T b = a & ( ASSIGN_SIGN_BITS(T)^FULL_MASK);
-	return (a & A_SIGN_BIT(T)) ? -b :b;
+	if(std::is_signed<T>::value){
+		T b = a&(I_ASSIGN_SIGN_BITS(T)^FULL_MASK(T));
+		return (a&A_SIGN_BIT(T))?-b:b;
+	}
+	return a&(I_ASSIGN_BIT(T)^FULL_MASK(T));
 };
 
 template<typename T>
 T value_to_assigned(T a,bool assigned){
-	T b = a<0? (-a) | A_SIGN_BIT(T) :a;
+	T b = a<0 ? (-a) | A_SIGN_BIT(T) :a;	
 	return b | (assigned ? I_ASSIGN_BIT(T) : 0x0);
 };
 
@@ -65,13 +68,13 @@ void print_binary(T data){
  * and S is the sign bit
  * */ 
 template<typename T>
-struct Asg {
+class Asg {
 	private:
 		T m_value;
 	public:
 		Asg():m_value(0x0){}
 		Asg(const T& value):m_value(value_to_assigned(value,true)){}
-		Asg(const Asg<T>&& other):m_value(other.value){}
+		Asg(const Asg<T>&& other):m_value(other.m_value){}
 		
 		
 		inline bool assigned() const { return m_value & I_ASSIGN_BIT(T); }
@@ -89,7 +92,7 @@ struct Asg {
 };
 
 template<typename T>
-struct AsgF {
+class AsgF {
 	private:
 		T m_value;
 	public:
