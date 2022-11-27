@@ -3,6 +3,7 @@
 
 class NoneOption;
 class AnyOption;
+
 template<typename T>
 class Option{
 	public:
@@ -65,10 +66,8 @@ class AnyOption{
 
 template<typename T>
 static inline Option<T> Some(const T& value){ return Option<T>::Some(value); }
-
 template<typename T>
 static inline Option<T> None(){ return Option<T>::Some(); }
-
 static inline NoneOption None(){ return NoneOption(); }
 static inline AnyOption Any(){ return AnyOption(); }
 

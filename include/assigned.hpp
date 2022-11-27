@@ -38,8 +38,8 @@ T assigned_to_floating(T a){
 }
 
 template<typename T>
-T reverseBits(T n){
-	uint64_t value = mutate(uint32_t,n);
+T reverse_bits(T n){
+	uint64_t value = mutate(uint64_t,n);
 	uint64_t rev = 0;
 	for(size_t bit=0;bit<sizeof(T)*8;bit++){
 		rev <<= 1;
@@ -49,7 +49,7 @@ T reverseBits(T n){
 }
 
 template<typename T>
-void printBinary(T data){
+void print_binary(T data){
 	uint64_t dt = mutate(uint64_t, data);
 	for(int bit = sizeof(T)*8 -1; bit>=0;--bit)
 		putc((dt >> bit) & 0x1 ? '1':'0',stdout );
