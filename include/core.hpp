@@ -43,3 +43,5 @@ inline void todo(const T& message){
 #ifdef	RUST_LIKE_CPP
 #define let auto
 #endif
+
+#define mutate(X,Y) (*(X*)&Y)
