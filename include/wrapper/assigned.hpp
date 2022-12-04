@@ -88,6 +88,9 @@ class Asg {
 		inline bool operator==(const Option<T>& other) const { return other.assigned() == assigned() && other.unwrap() == unwrap(); }
 };
 
+
+//TODO: test
+
 template<typename T>
 class AsgF {
 	private:

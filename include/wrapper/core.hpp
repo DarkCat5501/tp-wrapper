@@ -10,12 +10,38 @@
 #include <iostream>
 #include <cinttypes>
 
+
+enum class DefaultErrorType {
+	Unknown,
+	NotImplementedYet
+};
+
+namespace std
+{
+	template<typename T>
+	string to_string(const T& value);
+	
+	template<typename T=DefaultErrorType> 
+	string to_string(const T& error){
+		switch (error){
+			return_case(DefaultErrorType::Unknown,"Unknown");
+			return_case(DefaultErrorType::NotImplementedYet,"Not Implemented Yet");
+			default:break;
+		}
+	}
+} // namespace std
+
+
+
+
+
 template<typename T>
 struct Error: public std::exception {
-	T error;
+	T error;	
 	std::string error_str;
-	Error(const T& e):error(e),error_str(std::to_string(e)){}
-	Error(int e):error((T)e),error_str(std::strerror(e)){}
+
+    Error():error_str("Unknown"){}
+	Error(const T& e):error(e),error_str(std::is_integral<T>::value?std::strerror(e):std::to_string<T>(e)){}
 	const char* what() const noexcept override { return error_str.c_str(); }
 };
 

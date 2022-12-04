@@ -7,3 +7,5 @@
 #define mutate(X,Y) (*(X*)&Y)
 #define return_case(X,Y) case X: return Y
 #define return_if(X,Y) if(X) return Y
+
+
